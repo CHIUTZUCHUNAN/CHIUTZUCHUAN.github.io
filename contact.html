@@ -25,53 +25,90 @@
   </header>
 
   <main class="container">
-    <section class="section">
-      <h2>聯絡我們</h2>
-      <p>如果你想把自己的情境（電動車 / 綠建築 / 綠能設備 / ESG 與資安）整理成一份可投保的風險描述，我們可以協助你「把問題說清楚」。</p>
+   <section class="section">
+  <h2>聯絡我們</h2>
+  <p>此頁包含：即時表單驗證 + 偽報價試算（皆為前端 UI 模擬）。</p>
 
-      <div class="grid">
-        <div class="card">
-          <div class="badge">📩 留言表單（展示用）</div>
-          <form class="form" onsubmit="event.preventDefault(); alert('已送出（展示用）！');">
-            <input class="input" type="text" placeholder="你的姓名" required />
-            <input class="input" type="email" placeholder="Email" required />
-            <input class="input" type="text" placeholder="你關心的主題（例如：電動車 / 綠能設備 / 資安）" />
-            <textarea placeholder="請簡述你的需求或問題（展示用，不會真的送出）"></textarea>
-            <button class="btn primary" type="submit">送出留言</button>
-            <div class="small">此表單為靜態展示版本，若要真的寄信可改成 Google Forms 或後端服務。</div>
-          </form>
+  <div class="calc-grid">
+    <!-- 左：報價試算 -->
+    <div class="card" id="quoteCalc">
+      <div class="badge">🧮 偽報價試算（JS 模擬）</div>
+      <p class="small">提醒：此為作業展示用估算，非實際核保報價。</p>
+
+      <div class="form">
+        <div class="field">
+          <label for="qPlan"><b>方案類型</b></label>
+          <select class="input" id="qPlan">
+            <option value="ev">電動車保障方向</option>
+            <option value="greenhome">綠建築/節能設備</option>
+            <option value="renew">再生能源設備</option>
+            <option value="envliab">環境責任/污染風險</option>
+            <option value="cyber">ESG/永續資料與資安</option>
+          </select>
         </div>
 
-        <div class="card">
-          <div class="badge">📍 聯絡資訊（示範）</div>
-          <p><strong>服務時間：</strong>週一至週五 09:00–18:00</p>
-          <p><strong>Email：</strong>hello@greensure.example</p>
-          <p><strong>地址：</strong>（展示用）台灣｜永續大道 88 號</p>
-          <hr class="hr"/>
-          <p class="small">
-            若你是做「保險 × 綠色永續 × 資安」的作業，也可以把你的報告架構貼上來，
-            我可以幫你把內容改成更像顧問報告/網站文案。
-          </p>
+        <div class="field">
+          <label for="qSumInsured"><b>保額（單位：萬）</b></label>
+          <input class="input" id="qSumInsured" type="number" min="10" step="10" value="100" />
+          <div class="hint">例：100 代表 100 萬（示意）</div>
         </div>
 
-        <div class="card">
-          <div class="badge">✅ 快速自我檢核</div>
-          <p class="small">你可以先準備這三件事，讓需求更精準：</p>
-          <p>1) 你要保障的對象（車/設備/資料/營運）</p>
-          <p>2) 你最擔心的三種情境（颱風、停機、資料外洩…）</p>
-          <p>3) 你目前做過的風險控管（維護、監測、備援、資安）</p>
+        <div class="field">
+          <label for="qRisk"><b>風險等級（示意）</b></label>
+          <select class="input" id="qRisk">
+            <option value="low">低：維護佳 / 風險控管完整</option>
+            <option value="mid" selected>中：一般情境</option>
+            <option value="high">高：場址/設備/營運暴露較高</option>
+          </select>
         </div>
+
+        <div class="field">
+          <label><b>加選項目（示意）</b></label>
+          <label class="small"><input type="checkbox" id="qCyber" /> 資安韌性加值（+）</label>
+          <label class="small"><input type="checkbox" id="qSensor" checked /> 有監測/維護紀錄折扣（-）</label>
+        </div>
+
+        <button class="btn primary" type="button" id="btnQuote">產生估算結果</button>
       </div>
-    </section>
 
-    <footer class="footer">
-      <div class="container">
-        © <span id="y"></span> GreenSure 綠色保險（展示網站）
+      <div class="result-box" style="margin-top:12px;">
+        <div class="small">預估年保費（示意）</div>
+        <div class="result-big" id="outPremium">NT$ 0</div>
+        <div id="outBreakdown"></div>
       </div>
-    </footer>
-  </main>
+    </div>
 
-  <script src="assets/main.js"></script>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-</body>
-</html>
+    <!-- 右：聯絡表單（即時驗證） -->
+    <div class="card">
+      <div class="badge">📩 留言表單（即時驗證）</div>
+      <form class="form" id="contactForm" novalidate>
+        <div class="field">
+          <label for="name"><b>姓名（必填）</b></label>
+          <input class="input" id="name" type="text" placeholder="至少 2 個字" required />
+          <div class="error" id="errName">請輸入至少 2 個字的姓名</div>
+        </div>
+
+        <div class="field">
+          <label for="email"><b>Email（必填）</b></label>
+          <input class="input" id="email" type="email" placeholder="name@example.com" required />
+          <div class="error" id="errEmail">Email 格式不正確</div>
+        </div>
+
+        <div class="field">
+          <label for="topic"><b>主題（選填）</b></label>
+          <input class="input" id="topic" type="text" placeholder="例如：電動車 / 綠建築 / 資安" />
+          <div class="hint">用一句話說你想問什麼，我們更好回覆。</div>
+        </div>
+
+        <div class="field">
+          <label for="message"><b>訊息內容（必填）</b></label>
+          <textarea id="message" placeholder="至少 10 個字，描述你的情境與需求" required></textarea>
+          <div class="error" id="errMsg">請輸入至少 10 個字的內容</div>
+        </div>
+
+        <button class="btn primary" type="submit">送出（前端模擬）</button>
+        <div class="small">說明：本站部署於 GitHub Pages，無後端/資料庫，送出僅作業展示。</div>
+      </form>
+    </div>
+  </div>
+</section>

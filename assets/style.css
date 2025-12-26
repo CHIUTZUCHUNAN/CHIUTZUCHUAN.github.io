@@ -212,3 +212,54 @@ a:hover{ text-decoration: underline; }
 textarea{ min-height: 120px; resize: vertical; }
 .small{ font-size: 13px; color: var(--muted); }
 .hr{ height:1px; background: var(--line); margin: 14px 0; border:0; }
+/* ====== Form validation ====== */
+.field { display:grid; gap:6px; }
+.hint { font-size: 12px; color: var(--muted); }
+.error { font-size: 12px; color: #b42318; display:none; }
+.input.invalid, textarea.invalid { border-color: #fda29b; background: #fffbfa; }
+.input.valid, textarea.valid { border-color: #a6f4c5; background: #f6fffa; }
+.form-row { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 700px){ .form-row{ grid-template-columns: 1fr; } }
+
+/* ====== FAQ accordion ====== */
+.faq-item { border: 1px solid var(--line); border-radius: 14px; overflow:hidden; background: white; box-shadow: var(--shadow); }
+.faq-q {
+  width:100%;
+  text-align:left;
+  background: transparent;
+  border:0;
+  padding: 14px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-weight: 800;
+}
+.faq-q:hover { background: #f4fbf7; }
+.faq-a { padding: 0 14px 14px; color: var(--muted); line-height: 1.8; display:none; }
+.faq-item.open .faq-a { display:block; }
+.chev { transition: transform .18s ease; }
+.faq-item.open .chev { transform: rotate(180deg); }
+
+/* ====== Quote calculator ====== */
+.calc-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px){ .calc-grid{ grid-template-columns: 1fr; } }
+.result-box{
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfffd;
+  padding: 14px;
+}
+.result-big{ font-size: 26px; font-weight: 900; margin: 6px 0; }
+.kv{ display:flex; justify-content:space-between; gap: 10px; padding: 8px 0; border-top: 1px dashed var(--line); }
+.kv:first-child{ border-top:0; }
+.kv span{ color: var(--muted); }
+
+/* ====== Login UI ====== */
+.tabs { display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 6px; }
+.tab-btn{
+  padding: 10px 12px; border-radius: 999px; border:1px solid var(--line);
+  background:white; cursor:pointer; font-weight: 800; color: var(--muted);
+}
+.tab-btn.active{ background:#e9f6ef; color: var(--brand-2); text-decoration:none; }
+.hidden{ display:none !important; }

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>登入（UI 模擬）｜GreenSure 綠色保險</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-badge" aria-hidden="true"><span>G</span></div>
+        <div>GreenSure 綠色保險</div>
+      </a>
+      <nav class="nav-links" aria-label="主選單">
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="products.html">產品服務</a>
+        <a href="process.html">投保流程</a>
+        <a href="faq.html">常見問題</a>
+        <a href="contact.html">聯絡我們</a>
+        <a href="login.html">登入</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section" id="loginUI">
+      <h2>登入（UI Only）</h2>
+      <p>此頁為介面流程展示：GitHub Pages 為靜態網站，無後端驗證，登入僅為 UI 模擬。</p>
+
+      <div class="card">
+        <div class="badge">選擇登入角色</div>
+
+        <div class="tabs">
+          <button class="tab-btn" type="button" data-tab="personal">保戶（個人）</button>
+          <button class="tab-btn" type="button" data-tab="biz">企業（法人）</button>
+        </div>
+
+        <div data-pane="personal">
+          <form class="form">
+            <div class="form-row">
+              <div class="field">
+                <label><b>帳號</b></label>
+                <input class="input" placeholder="Email 或手機（示意）" required />
+              </div>
+              <div class="field">
+                <label><b>密碼</b></label>
+                <input class="input" type="password" placeholder="••••••••" required />
+              </div>
+            </div>
+            <button class="btn primary" type="submit">登入（模擬）</button>
+            <div class="small">提示：可在此延伸「保單查詢 / 風險改善建議」等功能（作業延伸）。</div>
+          </form>
+        </div>
+
+        <div data-pane="biz" class="hidden">
+          <form class="form">
+            <div class="form-row">
+              <div class="field">
+                <label><b>企業統編 / 代碼</b></label>
+                <input class="input" placeholder="例如：12345678（示意）" required />
+              </div>
+              <div class="field">
+                <label><b>管理者密碼</b></label>
+                <input class="input" type="password" placeholder="••••••••" required />
+              </div>
+            </div>
+            <div class="field">
+              <label><b>驗證碼（示意）</b></label>
+              <input class="input" placeholder="000000" required />
+              <div class="hint">（展示用）實務可改 OTP / MFA / SSO。</div>
+            </div>
+            <button class="btn primary" type="submit">登入（模擬）</button>
+            <div class="small">提示：企業端可延伸「ESG/資安風險問卷、保額建議、報表匯出」。</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">© <span id="y"></span> GreenSure 綠色保險（展示網站）</div>
+    </footer>
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

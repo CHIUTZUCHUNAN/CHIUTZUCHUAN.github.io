@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>聯絡我們｜GreenSure 綠色保險</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-badge" aria-hidden="true"><span>G</span></div>
+        <div>GreenSure 綠色保險</div>
+      </a>
+      <nav class="nav-links" aria-label="主選單">
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="products.html">產品服務</a>
+        <a href="process.html">投保流程</a>
+        <a href="faq.html">常見問題</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h2>聯絡我們</h2>
+      <p>如果你想把自己的情境（電動車 / 綠建築 / 綠能設備 / ESG 與資安）整理成一份可投保的風險描述，我們可以協助你「把問題說清楚」。</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="badge">📩 留言表單（展示用）</div>
+          <form class="form" onsubmit="event.preventDefault(); alert('已送出（展示用）！');">
+            <input class="input" type="text" placeholder="你的姓名" required />
+            <input class="input" type="email" placeholder="Email" required />
+            <input class="input" type="text" placeholder="你關心的主題（例如：電動車 / 綠能設備 / 資安）" />
+            <textarea placeholder="請簡述你的需求或問題（展示用，不會真的送出）"></textarea>
+            <button class="btn primary" type="submit">送出留言</button>
+            <div class="small">此表單為靜態展示版本，若要真的寄信可改成 Google Forms 或後端服務。</div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="badge">📍 聯絡資訊（示範）</div>
+          <p><strong>服務時間：</strong>週一至週五 09:00–18:00</p>
+          <p><strong>Email：</strong>hello@greensure.example</p>
+          <p><strong>地址：</strong>（展示用）台灣｜永續大道 88 號</p>
+          <hr class="hr"/>
+          <p class="small">
+            若你是做「保險 × 綠色永續 × 資安」的作業，也可以把你的報告架構貼上來，
+            我可以幫你把內容改成更像顧問報告/網站文案。
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="badge">✅ 快速自我檢核</div>
+          <p class="small">你可以先準備這三件事，讓需求更精準：</p>
+          <p>1) 你要保障的對象（車/設備/資料/營運）</p>
+          <p>2) 你最擔心的三種情境（颱風、停機、資料外洩…）</p>
+          <p>3) 你目前做過的風險控管（維護、監測、備援、資安）</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        © <span id="y"></span> GreenSure 綠色保險（展示網站）
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

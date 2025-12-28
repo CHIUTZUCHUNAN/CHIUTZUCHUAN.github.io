@@ -93,6 +93,15 @@ function setValidity(el, ok, msgSel){
       alert("請先完成表單必填欄位（紅框處）");
       return;
     }
+    // 若表單有設定外部 action（例如 Formspree），就交由瀏覽器送出
+    const action = (form.getAttribute('action') || '').toLowerCase();
+    if(action && (action.includes('formspree.io') || action.includes('formsubmit.co'))){
+      // 使用原生 submit() 直接送出（不會觸發 submit 事件處理器），避免重入
+      form.submit();
+      return;
+    }
+
+    // 預設前端模擬行為
     alert("已送出（前端模擬）！我們已收到你的訊息。");
     form.reset();
     [nameEl,emailEl,topicEl,msgEl].forEach(el=> el?.classList.remove("valid","invalid"));

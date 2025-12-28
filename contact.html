@@ -82,32 +82,37 @@
     <!-- 右：聯絡表單（即時驗證） -->
     <div class="card">
       <div class="badge">📩 留言表單（即時驗證）</div>
-      <form class="form" id="contactForm" novalidate>
+      <form class="form" id="contactForm" novalidate
+        action="https://formspree.io/f/xaqybrow"
+        method="POST">
         <div class="field">
           <label for="name"><b>姓名（必填）</b></label>
-          <input class="input" id="name" type="text" placeholder="至少 2 個字" required />
+          <input class="input" id="name" name="name" type="text" placeholder="至少 2 個字" required />
           <div class="error" id="errName">請輸入至少 2 個字的姓名</div>
         </div>
 
         <div class="field">
           <label for="email"><b>Email（必填）</b></label>
-          <input class="input" id="email" type="email" placeholder="name@example.com" required />
+          <input class="input" id="email" name="email" type="email" placeholder="name@example.com" required />
           <div class="error" id="errEmail">Email 格式不正確</div>
         </div>
 
         <div class="field">
           <label for="topic"><b>主題（選填）</b></label>
-          <input class="input" id="topic" type="text" placeholder="例如：電動車 / 綠建築 / 資安" />
+          <input class="input" id="topic" name="topic" type="text" placeholder="例如：電動車 / 綠建築 / 資安" />
           <div class="hint">用一句話說你想問什麼，我們更好回覆。</div>
         </div>
 
         <div class="field">
           <label for="message"><b>訊息內容（必填）</b></label>
-          <textarea id="message" placeholder="至少 10 個字，描述你的情境與需求" required></textarea>
+          <textarea id="message" name="message" placeholder="至少 10 個字，描述你的情境與需求" required></textarea>
           <div class="error" id="errMsg">請輸入至少 10 個字的內容</div>
         </div>
 
-        <button class="btn primary" type="submit">送出（前端模擬）</button>
+        <button class="btn primary" type="submit">送出</button>
+        <!-- 若使用 Formspree，已替換為你的表單 endpoint；可設定 _next 回傳頁面 -->
+        <input type="hidden" name="_subject" value="GreenSure 聯絡表單回覆" />
+        <input type="hidden" name="_next" value="thankyou.html" />
         <div class="small">說明：本站部署於 GitHub Pages，無後端/資料庫，送出僅作業展示。</div>
       </form>
     </div>

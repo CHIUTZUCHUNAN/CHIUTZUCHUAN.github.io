@@ -40,19 +40,7 @@ function setValidity(el, ok, msgSel){
 }
 
 // ====== FAQ accordion ======
-(function(){
-  const items = $all(".faq-item");
-  if(!items.length) return;
-
-  items.forEach(item=>{
-    const btn = $(".faq-q", item);
-    btn?.addEventListener("click", ()=>{
-      // 單開模式：先關其他
-      items.forEach(i=>{ if(i!==item) i.classList.remove("open"); });
-      item.classList.toggle("open");
-    });
-  });
-})();
+// (removed inline handlers in favor of a single safe initializer at bottom)
 
 // ====== Contact form live validation ======
 (function(){
@@ -229,46 +217,7 @@ function setValidity(el, ok, msgSel){
 
 })();
 
-// ====== Robust FAQ binder (fallback) ======
-(function(){
-  try{
-    const questions = Array.from(document.querySelectorAll('.faq-q'));
-    if(!questions.length) return;
-    questions.forEach(q => {
-      if(q.dataset.accordionBound) return;
-      q.dataset.accordionBound = '1';
-      q.addEventListener('click', ()=>{
-        const item = q.closest('.faq-item');
-        if(!item) return;
-        // close other items in same container
-        const siblings = item.parentElement ? Array.from(item.parentElement.querySelectorAll('.faq-item')) : [];
-        siblings.forEach(s=>{ if(s!==item) s.classList.remove('open'); });
-        item.classList.toggle('open');
-        const chev = q.querySelector('.chev') || q.querySelector('.toggle-icon');
-        if(chev){ /* rotation handled by CSS */ }
-        q.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
-      });
-    });
-  }catch(e){ console.warn('FAQ binder fallback error', e); }
-})();
-
-// FAQ delegation fallback (robust when elements are dynamic)
-(function(){
-  try{
-    document.addEventListener('click', function(e){
-      const q = e.target.closest && e.target.closest('.faq-q');
-      if(!q) return;
-      const item = q.closest('.faq-item');
-      if(!item) return;
-      const container = item.parentElement;
-      if(container){
-        Array.from(container.querySelectorAll('.faq-item')).forEach(s=>{ if(s!==item) s.classList.remove('open'); });
-      }
-      item.classList.toggle('open');
-      q.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
-    });
-  }catch(e){ /* noop */ }
-})();
+// NOTE: FAQ accordion initialization moved to a single safe initializer below.
 
 // ====== Login UI-only ======
 (function(){
@@ -301,3 +250,26 @@ function setValidity(el, ok, msgSel){
     });
   });
 })();
+
+// ===== FAQ accordion (safe version) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) {
+    console.warn('FAQ items not found');
+    return;
+  }
+
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      // 關閉其他
+      items.forEach(i => { if (i !== item) i.classList.remove('open'); });
+      // 切換自己
+      item.classList.toggle('open');
+    });
+  });
+
+  console.log('FAQ accordion initialized ✅');
+});

@@ -251,25 +251,52 @@ function setValidity(el, ok, msgSel){
   });
 })();
 
-// ===== FAQ accordion (safe version) =====
-document.addEventListener("DOMContentLoaded", () => {
+// ===== FAQ accordion (robust + debug) =====
+function initFaq(){
   const items = document.querySelectorAll('.faq-item');
-  if (!items.length) {
-    console.warn('FAQ items not found');
-    return;
-  }
+  console.log('initFaq: found faq items ->', items.length);
+  if (!items.length) return;
 
   items.forEach(item => {
     const btn = item.querySelector('.faq-q');
     if (!btn) return;
 
-    btn.addEventListener('click', () => {
-      // 關閉其他
-      items.forEach(i => { if (i !== item) i.classList.remove('open'); });
-      // 切換自己
-      item.classList.toggle('open');
-    });
-  });
+    // remove old handler if exists
+    try{ if(btn._faqHandler) btn.removeEventListener('click', btn._faqHandler); }catch(e){}
 
-  console.log('FAQ accordion initialized ✅');
+    const handler = () => {
+      console.log('faq click handler fired for item:', item);
+      items.forEach(i => { if (i !== item) i.classList.remove('open'); });
+      item.classList.toggle('open');
+      console.log('faq state after toggle ->', item.classList.contains('open'));
+    };
+
+    btn.addEventListener('click', handler);
+    // keep reference so we can remove later if re-init
+    btn._faqHandler = handler;
+  });
+}
+
+// Ensure init runs whether script loaded before or after DOM
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', ()=>{
+    initFaq();
+    console.log('FAQ init after DOMContentLoaded');
+  });
+} else {
+  // DOM already ready
+  initFaq();
+  console.log('FAQ init immediate');
+}
+
+// Delegated fallback: if individual handlers fail, this will still toggle
+document.addEventListener('click', (e)=>{
+  const q = e.target.closest && e.target.closest('.faq-q');
+  if(!q) return;
+  const item = q.closest('.faq-item');
+  if(!item) return;
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(i => { if(i !== item) i.classList.remove('open'); });
+  item.classList.toggle('open');
+  console.log('delegation toggled faq ->', item.classList.contains('open'));
 });

@@ -174,6 +174,8 @@ a:hover{ text-decoration: underline; }
   box-shadow: var(--shadow);
   padding: 18px;
 }
+.card.product-card{ cursor: pointer; transition: transform .12s ease; }
+.card.product-card:hover{ transform: translateY(-6px); }
 .card h3{ margin: 0 0 6px; }
 .card p{ margin: 0; color: var(--muted); line-height: 1.75; }
 
@@ -279,3 +281,13 @@ textarea{ min-height: 120px; resize: vertical; }
 }
 .tab-btn.active{ background:#e9f6ef; color: var(--brand-2); text-decoration:none; }
 .hidden{ display:none !important; }
+
+/* 通用 Modal */
+.modal{ position: fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(15,27,22,0.45); z-index: 60; }
+.modal.open{ display:flex; }
+.modal-dialog{ width:min(900px, 94%); max-height: 86vh; overflow:auto; background: var(--card); border-radius: 12px; padding: 22px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); border:1px solid rgba(0,0,0,0.04); }
+.modal-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.modal-title{ font-size:20px; margin:0; }
+.modal-close{ background:transparent; border:0; font-size:20px; cursor:pointer; color:var(--muted); }
+.modal-body{ margin-top:12px; color:var(--muted); line-height:1.7; }
+.modal .kv{ border-top:0; }

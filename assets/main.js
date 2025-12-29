@@ -184,6 +184,51 @@ function setValidity(el, ok, msgSel){
   });
 })();
 
+// ====== Product details modal ======
+(function(){
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 class="modal-title"></h3>
+        <button class="modal-close" aria-label="關閉">✕</button>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const titleEl = modal.querySelector('.modal-title');
+  const bodyEl = modal.querySelector('.modal-body');
+  const closeBtn = modal.querySelector('.modal-close');
+
+  function openDetail(targetId){
+    const tpl = document.getElementById(targetId);
+    if(!tpl) return;
+    titleEl.textContent = tpl.querySelector('h3')?.textContent || '';
+    bodyEl.innerHTML = tpl.innerHTML;
+    // remove the title inside body to avoid duplicate
+    const firstH = bodyEl.querySelector('h3'); if(firstH) firstH.remove();
+    modal.classList.add('open');
+  }
+
+  function close(){ modal.classList.remove('open'); }
+
+  // bind product cards
+  document.querySelectorAll('.product-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      const id = card.getAttribute('data-target');
+      if(id) openDetail(id);
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) close(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+
+})();
+
 // ====== Login UI-only ======
 (function(){
   const wrap = $("#loginUI");

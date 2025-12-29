@@ -31,37 +31,110 @@
       <p>以下為綠色保險常見的保障方向（展示用內容）。實際保障範圍仍需以條款與核保條件為準。</p>
 
       <div class="grid">
-        <div class="card">
+        <div class="card product-card" data-target="prod-ev">
           <div class="badge">🚗 交通</div>
           <h3>電動車綜合保險</h3>
           <p>涵蓋碰撞、第三人責任與電池相關風險思維（如維修成本差異、充電情境風險提醒）。</p>
         </div>
-        <div class="card">
+        <div class="card product-card" data-target="prod-green-build">
           <div class="badge">🏠 建築</div>
           <h3>綠建築與節能設備保障</h3>
           <p>針對太陽能板、節能空調、智慧能源管理設備等，提供財產損失與中斷風險管理概念。</p>
         </div>
-        <div class="card">
+        <div class="card product-card" data-target="prod-renew">
           <div class="badge">☀️ 能源</div>
           <h3>再生能源財產險（示範）</h3>
           <p>聚焦施工、運維、自然災害與發電中斷等情境，強調「可監測、可降低」的風險做法。</p>
         </div>
 
-        <div class="card">
+        <div class="card product-card" data-target="prod-climate">
           <div class="badge">🌊 氣候</div>
           <h3>氣候災害韌性方案（示範）</h3>
           <p>用更貼近極端氣候的風險地圖與情境討論，協助企業規劃保護措施與損失預防。</p>
         </div>
-        <div class="card">
+        <div class="card product-card" data-target="prod-envliab">
           <div class="badge">♻️ 責任</div>
           <h3>環境責任與污染風險（示範）</h3>
           <p>針對意外污染、清理成本與第三人損害等，提供更清楚的責任界線與事故應變建議。</p>
         </div>
-        <div class="card">
+        <div class="card product-card" data-target="prod-esg">
           <div class="badge">🔐 資安</div>
           <h3>ESG/永續資料與資安韌性（示範）</h3>
           <p>針對碳盤查、ESG 揭露、IoT 感測資料等，建立資料外洩、勒索與營運中斷的風險管理框架。</p>
         </div>
+      </div>
+
+      <!-- product detail templates (hidden) -->
+      <div id="prod-ev" class="product-detail hidden">
+        <h3>電動車綜合保險 — 核心概念</h3>
+        <p>考量電池、高壓系統、充電情境與傳統燃油車不同的風險結構。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>電動車車體損失保障：</b>碰撞、翻覆、自然災害（颱風、淹水）。</li>
+          <li><b>第三人責任保險：</b>體傷、財損責任。</li>
+          <li><b>電池與高壓系統風險模組（示範）：</b>電池受損、熱失控相關事故；高壓系統維修成本差異考量。</li>
+          <li><b>充電情境風險與延伸保障：</b>公共充電樁事故、家用充電設備連動風險（火災、短路）。</li>
+        </ul>
+      </div>
+
+      <div id="prod-green-build" class="product-detail hidden">
+        <h3>綠建築與節能設備保障 — 核心概念</h3>
+        <p>從「整棟建築」轉向「能源與設備導向」的財產風險管理。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>綠建築財產損失保障：</b>火災、地震、颱風、洪水。</li>
+          <li><b>節能設備損失保障：</b>高效空調、能源管理系統（EMS）。</li>
+          <li><b>設備故障與維修風險（示範）：</b>非自然耗損的突發故障。</li>
+          <li><b>營運中斷風險（示範）：</b>設備故障導致營運暫停。</li>
+        </ul>
+      </div>
+
+      <div id="prod-renew" class="product-detail hidden">
+        <h3>再生能源財產險 — 核心概念</h3>
+        <p>把再生能源視為「可監測、可改善」的動態風險。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>施工期間風險保障：</b>安裝事故、材料損壞。</li>
+          <li><b>營運期間設備損失保障：</b>太陽能板、風機、逆變器。</li>
+          <li><b>自然災害風險：</b>強風、冰雹、雷擊。</li>
+          <li><b>發電中斷風險（示範）：</b>非預期停機造成的收入損失。</li>
+        </ul>
+      </div>
+
+      <div id="prod-climate" class="product-detail hidden">
+        <h3>氣候災害韌性方案 — 核心概念</h3>
+        <p>從「事後理賠」轉向「事前韌性建構」。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>極端氣候財產損失保障：</b>淹水、土石流、熱浪。</li>
+          <li><b>風險地圖分區評估（示範）：</b>不同地區差異化風險。</li>
+          <li><b>情境模擬與防災建議（示範）：</b>事前改善措施（防水、抬高設備）。</li>
+          <li><b>快速理賠觸發機制（概念）：</b>指標型保險思維（雨量、水位）。</li>
+        </ul>
+      </div>
+
+      <div id="prod-envliab" class="product-detail hidden">
+        <h3>環境責任與污染風險 — 核心概念</h3>
+        <p>讓企業「知道責任到哪裡、事故發生怎麼做」。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>突發污染責任保障：</b>化學品外洩、油污。</li>
+          <li><b>清理與復原成本保障：</b>政府命令清理費用。</li>
+          <li><b>第三人損害責任：</b>人體傷害、財產損失。</li>
+          <li><b>事故應變與通報支援（示範）：</b>危機處理流程建議。</li>
+        </ul>
+      </div>
+
+      <div id="prod-esg" class="product-detail hidden">
+        <h3>ESG / 永續資料與資安韌性 — 核心概念</h3>
+        <p>沒有資安，就沒有可信的永續。</p>
+        <h4>細項保障模組</h4>
+        <ul>
+          <li><b>ESG／碳盤查資料外洩風險：</b>ESG 報告、碳排數據。</li>
+          <li><b>IoT／感測設備資安風險：</b>智慧電網、環境感測器。</li>
+          <li><b>勒索軟體與系統中斷（示範）：</b>營運停擺風險。</li>
+          <li><b>事件應變與鑑識支援（概念）：</b>資安事件通報與復原流程。</li>
+        </ul>
       </div>
 
       <hr class="hr"/>

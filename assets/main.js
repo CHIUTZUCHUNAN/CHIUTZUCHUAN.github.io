@@ -229,6 +229,29 @@ function setValidity(el, ok, msgSel){
 
 })();
 
+// ====== Robust FAQ binder (fallback) ======
+(function(){
+  try{
+    const questions = Array.from(document.querySelectorAll('.faq-q'));
+    if(!questions.length) return;
+    questions.forEach(q => {
+      if(q.dataset.accordionBound) return;
+      q.dataset.accordionBound = '1';
+      q.addEventListener('click', ()=>{
+        const item = q.closest('.faq-item');
+        if(!item) return;
+        // close other items in same container
+        const siblings = item.parentElement ? Array.from(item.parentElement.querySelectorAll('.faq-item')) : [];
+        siblings.forEach(s=>{ if(s!==item) s.classList.remove('open'); });
+        item.classList.toggle('open');
+        const chev = q.querySelector('.chev') || q.querySelector('.toggle-icon');
+        if(chev){ /* rotation handled by CSS */ }
+        q.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
+      });
+    });
+  }catch(e){ console.warn('FAQ binder fallback error', e); }
+})();
+
 // ====== Login UI-only ======
 (function(){
   const wrap = $("#loginUI");

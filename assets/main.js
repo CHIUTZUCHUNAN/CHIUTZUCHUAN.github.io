@@ -252,6 +252,24 @@ function setValidity(el, ok, msgSel){
   }catch(e){ console.warn('FAQ binder fallback error', e); }
 })();
 
+// FAQ delegation fallback (robust when elements are dynamic)
+(function(){
+  try{
+    document.addEventListener('click', function(e){
+      const q = e.target.closest && e.target.closest('.faq-q');
+      if(!q) return;
+      const item = q.closest('.faq-item');
+      if(!item) return;
+      const container = item.parentElement;
+      if(container){
+        Array.from(container.querySelectorAll('.faq-item')).forEach(s=>{ if(s!==item) s.classList.remove('open'); });
+      }
+      item.classList.toggle('open');
+      q.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
+    });
+  }catch(e){ /* noop */ }
+})();
+
 // ====== Login UI-only ======
 (function(){
   const wrap = $("#loginUI");

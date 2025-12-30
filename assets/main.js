@@ -251,31 +251,23 @@ function setValidity(el, ok, msgSel){
   });
 })();
 
-// ===== FAQ accordion (robust + debug) =====
-function initFaq(){
-  const items = document.querySelectorAll('.faq-item');
-  console.log('initFaq: found faq items ->', items.length);
-  if (!items.length) return;
+// ===== FAQ accordion (single delegation, no double-toggle) =====
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest?.('.faq-q');
+  if (!btn) return;
 
-  items.forEach(item => {
-    const btn = item.querySelector('.faq-q');
-    if (!btn) return;
+  const item = btn.closest('.faq-item');
+  if (!item) return;
 
-    // remove old handler if exists
-    try{ if(btn._faqHandler) btn.removeEventListener('click', btn._faqHandler); }catch(e){}
-
-    const handler = () => {
-      console.log('faq click handler fired for item:', item);
-      items.forEach(i => { if (i !== item) i.classList.remove('open'); });
-      item.classList.toggle('open');
-      console.log('faq state after toggle ->', item.classList.contains('open'));
-    };
-
-    btn.addEventListener('click', handler);
-    // keep reference so we can remove later if re-init
-    btn._faqHandler = handler;
+  // close others
+  document.querySelectorAll('.faq-item').forEach(i => {
+    if (i !== item) i.classList.remove('open');
   });
-}
+
+  // toggle current
+  item.classList.toggle('open');
+});
+
 
 // Ensure init runs whether script loaded before or after DOM
 if(document.readyState === 'loading'){

@@ -291,3 +291,33 @@ textarea{ min-height: 120px; resize: vertical; }
 .modal-close{ background:transparent; border:0; font-size:20px; cursor:pointer; color:var(--muted); }
 .modal-body{ margin-top:12px; color:var(--muted); line-height:1.7; }
 .modal .kv{ border-top:0; }
+
+/* ===== FAQ accordion ===== */
+.faq-a { 
+  display: none;
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-a { 
+  display: block; 
+}
+
+/* 讓按鈕看起來可點 */
+.faq-q{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  border:0;
+  padding:14px 12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.faq-item{
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:14px;
+  padding:4px 8px;
+}

@@ -291,3 +291,65 @@ document.addEventListener("click", (e) => {
   if (isOpen) item.classList.remove("open");
   else item.classList.add("open");
 });
+//test
+(function(){
+  const log = document.getElementById("chatLog");
+  const input = document.getElementById("chatInput");
+  const send = document.getElementById("chatSend");
+  const hint = document.getElementById("chatHint");
+  if(!log || !input || !send) return;
+
+  const MODEL = "mistral:latest";
+  const API = "http://127.0.0.1:11434/api/chat";
+
+  function add(role, text){
+    const div = document.createElement("div");
+    div.className = "card";
+    div.style.boxShadow = "none";
+    div.style.borderRadius = "12px";
+    div.innerHTML = `<b>${role==="user" ? "你" : "GreenSure AI"}</b><div class="small" style="margin-top:6px; white-space:pre-wrap;">${text}</div>`;
+    log.appendChild(div);
+    div.scrollIntoView({behavior:"smooth", block:"end"});
+  }
+
+  async function ask(msg){
+    add("user", msg);
+    hint.textContent = "AI 回覆中…（需本機 Ollama 開啟）";
+
+    const payload = {
+      model: MODEL,
+      stream: false,
+      messages: [
+        { role:"system", content:"你是 GreenSure 綠色保險展示網站的 AI 客服。請用繁體中文、條列清楚、回答聚焦在：綠色保險、永續、資安、產品情境、投保流程、FAQ。若問題超出範圍，請引導使用者到 FAQ/產品頁。" },
+        { role:"user", content: msg }
+      ]
+    };
+
+    try{
+      const res = await fetch(API, {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+      });
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      add("assistant", data?.message?.content || "（沒有回覆內容）");
+      hint.textContent = "";
+    }catch(err){
+      hint.textContent = "連不到本機 Ollama（可能 CORS 或 Ollama 沒開）。建議用 VSCode Live Server 在本機展示。";
+      add("assistant", "目前無法連線到本機 AI（展示用）。");
+      console.error(err);
+    }
+  }
+
+  send.addEventListener("click", ()=>{
+    const msg = input.value.trim();
+    if(!msg) return;
+    input.value = "";
+    ask(msg);
+  });
+  input.addEventListener("keydown", (e)=>{ if(e.key==="Enter") send.click(); });
+
+  add("assistant", "嗨！我是 GreenSure AI（本機示範）。你可以問：綠色保險與傳統差異？為何要納入資安？投保流程怎麼走？");
+})();
+
